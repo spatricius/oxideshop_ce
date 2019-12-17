@@ -75,6 +75,23 @@ class ShopSetUpTest extends FrontendTestCase
         $oServiceCaller->callService('ViewsGenerator', 1);
     }
 
+    private function checkDatabaseInstallingMessage() {
+        $aMessages = array(
+            0 => "Seems there is already OXID eShop installed in database",
+            1 => "A bug in MySQL 5.6 may lead to problems in OXID eShop Enterprise Edition",
+            2 => "Please provide necessary data for running OXID eShop"
+        );
+        $this->waitForText($aMessages, false, 120);
+        $this->checkForErrors();
+
+        if ($this->isTextPresent($aMessages[0]) || $this->isTextPresent($aMessages[1])) {
+            $this->assertElementPresent("step3Continue");
+            $this->click("step3Continue");
+            $this->waitForText($aMessages[2], false, 120);
+            $this->checkForErrors();
+        }
+    }
+
     /**
      * Tests installation of new shop version (setup).
      * Test chooses demo data if possible test data otherwise.
@@ -162,19 +179,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->assertElementPresent("step3Submit");
         $this->click("step3Submit");
-        $aMessages = array(
-            0 => "Seems there is already OXID eShop installed in database",
-            1 => "Please provide necessary data for running OXID eShop"
-        );
-        $this->waitForText($aMessages, false, 120);
-        $this->checkForErrors();
-
-        if ($this->isTextPresent($aMessages[0])) {
-            $this->assertElementPresent("step3Continue");
-            $this->click("step3Continue");
-            $this->waitForText($aMessages[1], false, 120);
-            $this->checkForErrors();
-        }
+        $this->checkDatabaseInstallingMessage();
 
         // Step 5
         $this->assertEquals($this->getTestConfig()->getShopUrl(), $this->getValue("aPath[sShopURL]"));
@@ -301,8 +306,7 @@ class ShopSetUpTest extends FrontendTestCase
         $this->provideDatabaseParameters($host, $port, 'test', 'test', 'test');
         $this->click(self::DIRECTORY_LOGIN_STEP);
 
-        $this->waitForText("ERROR: No database connection possible!");
-        $this->assertTextPresent("Access denied for user");
+        $this->assertTextPresent("ERROR: No database connection possible!");
 
         $this->waitForText("Database is going to be created and needed tables are written. Please provide some information:");
     }
@@ -462,6 +466,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '123456');
         $this->click(self::FINISH_CE_STEP);
@@ -502,6 +507,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '123456');
         $this->click(self::FINISH_CE_STEP);
@@ -539,6 +545,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->click(self::FINISH_CE_STEP);
 
@@ -567,6 +574,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '12345');
         $this->click(self::FINISH_CE_STEP);
@@ -596,6 +604,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '123456', '123457');
         $this->click(self::FINISH_CE_STEP);
@@ -625,6 +634,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('invalid_email', '123456', '123456');
         $this->click(self::FINISH_CE_STEP);
@@ -654,6 +664,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopDirectoryParameters(null, '/test/');
         $this->provideEshopLoginParameters('test@test.com', '123456', '123456');
@@ -686,6 +697,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '123456', '123456');
         $this->click(self::FINISH_CE_STEP);
@@ -722,6 +734,7 @@ class ShopSetUpTest extends FrontendTestCase
 
         $this->provideDatabaseParameters($host, $port, $name, $user, $password);
         $this->clickContinueAndProceedTo(self::DIRECTORY_LOGIN_STEP);
+        $this->checkDatabaseInstallingMessage();
 
         $this->provideEshopLoginParameters('test@test.com', '123456', '123456');
         $this->clickContinueAndProceedTo(self::FINISH_CE_STEP);
