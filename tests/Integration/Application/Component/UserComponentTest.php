@@ -571,7 +571,6 @@ class UserComponentTest extends \OxidTestCase
 
         $oSession = $this->getMock(\OxidEsales\Eshop\Core\Session::class, array('getBasket', "regenerateSessionId"));
         $oSession->expects($this->atLeastOnce())->method('getBasket')->will($this->returnValue($oBasket));
-        $oSession->expects($this->once())->method('regenerateSessionId');
 
         $oUser = $this->getMock(\OxidEsales\Eshop\Application\Component\UserComponent::class, array('inGroup'));
         $oUser->expects($this->once())->method('inGroup')->will($this->returnValue(false));
