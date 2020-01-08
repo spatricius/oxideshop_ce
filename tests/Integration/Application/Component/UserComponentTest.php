@@ -578,7 +578,6 @@ class UserComponentTest extends \OxidTestCase
         $aMockFnc = array('getSession', "getLoginStatus");
         $oUserView = $this->getMock(\OxidEsales\Eshop\Application\Component\UserComponent::class, $aMockFnc);
         $oUserView->expects($this->atLeastOnce())->method('getSession')->will($this->returnValue($oSession));
-        $oUserView->expects($this->atLeastOnce())->method('getLoginStatus')->will($this->returnValue(1));
         $this->assertEquals('payment', $oUserView->UNITafterLogin($oUser));
     }
 
