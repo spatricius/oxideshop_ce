@@ -1031,8 +1031,8 @@ class SearchAndSortingAdminTest extends AdminTestCase
         $this->assertEquals("2007-12-31 00:00:00", $this->getText("//tr[@id='row.1']/td[".$iValidFromCol."]"));
         $this->assertEquals("2019-12-31 00:00:00", $this->getText("//tr[@id='row.1']/td[".$iValidToCol."]"));
         $this->assertEquals("100.00", $this->getText("//tr[@id='row.1']/td[".$iOrderSumCol."]"));
-        $this->assertEquals("2020-01-01 00:00:00", $this->getText("//tr[@id='row.2']/td[".$iValidToCol."]"));
-        $this->assertEquals("2020-01-01 00:00:00", $this->getText("//tr[@id='row.3']/td[".$iValidToCol."]"));
+        $this->assertEquals("2020-10-10 00:00:00", $this->getText("//tr[@id='row.2']/td[".$iValidToCol."]"));
+        $this->assertEquals("2020-12-31 00:00:00", $this->getText("//tr[@id='row.3']/td[".$iValidToCol."]"));
         $this->clickAndWait("link=Min. Order Sum");
         $this->assertEquals("1 Coupon šÄßüл", $this->getText("//tr[@id='row.1']/td[".$iNameCol."]"));
         $this->assertEquals("5.00", $this->getText("//tr[@id='row.1']/td[".$iDiscountCol."]"));
