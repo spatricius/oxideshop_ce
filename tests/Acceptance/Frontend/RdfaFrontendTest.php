@@ -137,9 +137,6 @@ class RdfaFrontendTest extends FrontendTestCase
             $sLocation = $this->getLocation();
             $this->assertElementNotPresent("//div[@about='{$sLocation}#COD(CashonDelivery)_oxidcashondel' and @typeof='gr:PaymentMethod']");
             $this->assertElementNotPresent("//div[@property='rdfs:label' and @content='COD (Cash on Delivery)']");
-            $this->assertElementNotPresent("//div[@about='{$sLocation}#CreditCard_oxidcreditcard' and @typeof='gr:PaymentMethod']");
-            $this->assertElementNotPresent("//div[@property='rdfs:label' and @content='Credit Card']");
-            $this->assertElementNotPresent("//div[@property='rdfs:comment' and @content='Your Credit Card will be charged when you submit the order.']");
             $this->assertElementNotPresent("//div[@about='{$sLocation}#DirectDebit_oxiddebitnote' and @typeof='gr:PaymentMethod']");
             $this->assertElementNotPresent("//div[@property='rdfs:label' and @content='Direct Debit']");
             $this->assertElementNotPresent("//div[@property='rdfs:comment' and @content='Your bank account will be charged when the order is shipped.']");
@@ -292,14 +289,6 @@ class RdfaFrontendTest extends FrontendTestCase
 
         // Method: COD (Cash on Delivery)
         $this->_setPaymentMethodRdfaOption('oxidcashondel', 'COD');
-
-        // Method: Credit Card
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'AmericanExpress');
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'DinersClub');
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'Discover');
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'JCB');
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'MasterCard');
-        $this->_setPaymentMethodRdfaOption('oxidcreditcard', 'VISA');
 
         // Method: Direct Debit
         $this->_setPaymentMethodRdfaOption('oxiddebitnote', 'DirectDebit');
